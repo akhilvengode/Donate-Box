@@ -1,0 +1,27 @@
+.triangle {
+  width: 0;
+}
+
+.triangle--down,
+.triangle--up {
+  border-left: 0.31rem solid transparent;
+  border-right: 0.31rem solid transparent;
+  border-top: 0.62rem solid #b9b9b9;
+}
+
+.triangle--up {
+  border-bottom: 0.62rem solid #b9b9b9;
+  border-top: 0;
+}
+
+.triangle--left,
+.triangle--right {
+  border-top: 0.31rem solid transparent;
+  border-bottom: 0.31rem solid transparent;
+  border-right: 0.62rem solid #b9b9b9;
+}
+
+.triangle--right {
+  border-left: 0.62rem solid #b9b9b9;
+  border-right: 0;
+}

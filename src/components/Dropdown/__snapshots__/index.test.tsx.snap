@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Dropdown component should match the snapshot 1`] = `
+<div
+  className="dropdown"
+>
+  <label>
+    <span
+      className="dropdown__label"
+      onClick={[Function]}
+    >
+      Test Label
+    </span>
+    <div
+      aria-expanded={false}
+      className="dropdown__head"
+      id="dropdown-head"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      second
+      <Triangle
+        type="down"
+      />
+    </div>
+  </label>
+</div>
+`;

@@ -1,0 +1,51 @@
+.input {
+  text-align: left;
+  margin: 1.5rem 0;
+}
+
+.input__label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+.input__required {
+  color: #be1313;
+  margin-left: 4px;
+}
+
+.input input {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+}
+
+.input input:focus {
+  outline: 2px solid #007fff;
+}
+
+/* Chrome, Safari, Edge, Opera  - to remove arrows from number input */
+.input input::-webkit-outer-spin-button,
+.input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox - to remove arrows from number input */
+.input input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input--error input {
+  border: 1px solid #be1313;
+}
+
+.input--error p {
+  color: #be1313;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+}

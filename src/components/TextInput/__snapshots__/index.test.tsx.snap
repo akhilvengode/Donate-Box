@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing input component should match the snapshot 1`] = `
+<div
+  className="input"
+>
+  <label
+    className="input__label"
+    htmlFor="test"
+  />
+  <input
+    id="test"
+    onChange={[MockFunction]}
+    type="text"
+  />
+</div>
+`;

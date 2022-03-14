@@ -1,0 +1,38 @@
+.donatebox {
+  padding: 2rem;
+  background-color: white;
+  width: 35%;
+  min-width: 450px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px lightgrey, -2px -2px 8px lightgrey;
+}
+
+.donatebox__anonymous {
+  margin: 1.5rem 0;
+}
+
+.donatebox__terms {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.donatebox__terms a {
+  margin-left: 4px;
+  text-decoration: none;
+  color: #ea4c89;
+}
+
+.donatebox__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 450px) {
+  .donatebox {
+    width: 95%;
+    min-width: 0;
+  }
+}
