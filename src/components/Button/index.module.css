@@ -15,8 +15,8 @@
 }
 
 .button--disabled {
-  background-color: lightgrey;
-  color: #b1b1b1;
+  background-color: #e6e6e6;
+  color: #818181;
   cursor: not-allowed;
 }
 

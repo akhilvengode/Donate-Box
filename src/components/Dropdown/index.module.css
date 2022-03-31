@@ -16,7 +16,7 @@
   min-height: 50px;
   padding: 1rem;
   width: 100%;
-  border: 1px solid lightgrey;
+  border: 1px solid #717171;
   border-radius: 4px;
   margin-top: 5px;
   cursor: pointer;
@@ -43,7 +43,7 @@
 }
 
 .dropdown__placeholder {
-  color: #acacac;
+  color: #717171;
   margin: 0;
 }
 

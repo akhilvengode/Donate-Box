@@ -5,14 +5,15 @@ type PropType = {
   className?: string;
   textAlign?: "left" | "center" | "right";
   varient?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  children: string;
 };
 
-const Heading: React.FC<PropType> = ({
+export const Heading = ({
   children,
   className,
   textAlign = "left",
   varient = "h1",
-}) => {
+}: PropType) => {
   const Heading = varient;
   return (
     <Heading
@@ -26,5 +27,3 @@ const Heading: React.FC<PropType> = ({
     </Heading>
   );
 };
-
-export default Heading;

@@ -9,7 +9,7 @@ export type PropType = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const TextInput: React.FC<PropType & React.HTMLProps<HTMLInputElement>> = ({
+export const TextInput = ({
   id,
   label,
   required,
@@ -17,7 +17,7 @@ const TextInput: React.FC<PropType & React.HTMLProps<HTMLInputElement>> = ({
   errorMessage,
   type = "text",
   ...props
-}) => {
+}: PropType & React.HTMLProps<HTMLInputElement>) => {
   return (
     <div className={classnames(styles.input, error && styles["input--error"])}>
       <label className={styles.input__label} htmlFor={id}>
@@ -29,5 +29,3 @@ const TextInput: React.FC<PropType & React.HTMLProps<HTMLInputElement>> = ({
     </div>
   );
 };
-
-export default TextInput;

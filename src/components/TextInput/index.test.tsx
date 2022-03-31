@@ -1,27 +1,33 @@
-import { shallow } from "enzyme";
-import Input from ".";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { TextInput } from ".";
 
 describe("Testing input component", () => {
   const onChangeFunction = jest.fn();
-  const wrapper = shallow(<Input id="test" onChange={onChangeFunction} />);
-
-  it("should match the snapshot", () => {
-    expect(wrapper).toMatchSnapshot();
-  });
 
   it("should render the input component", () => {
-    expect(wrapper).toHaveLength(1);
+    render(
+      <TextInput label="Test label" id="test" onChange={onChangeFunction} />
+    );
+    expect(screen.getByLabelText("Test label")).toBeInTheDocument();
   });
 
   it("should call the given function on onChange event happens", () => {
-    wrapper.find("#test").simulate("change");
+    render(
+      <TextInput label="Test label" id="test" onChange={onChangeFunction} />
+    );
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: "a" } });
     expect(onChangeFunction).toBeCalled();
   });
 
   it("should render error message when error is set", () => {
-    const wrapper2 = shallow(
-      <Input id="test" onChange={onChangeFunction} error errorMessage="Error" />
+    render(
+      <TextInput
+        id="test"
+        onChange={onChangeFunction}
+        error
+        errorMessage="Error"
+      />
     );
-    expect(wrapper2.find("p").text()).toEqual("Error");
+    expect(screen.getByText("Error")).toBeInTheDocument();
   });
 });

@@ -59,6 +59,11 @@
   border-color: #2e7d32;
 }
 
+.checkbox__box--error {
+  background-color: #ce0f0f;
+  border-color: #ce0f0f;
+}
+
 .checkbox__box--medium {
   width: 20px;
   height: 20px;

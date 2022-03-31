@@ -1,22 +1,25 @@
-import React from "react";
 import classnames from "classnames";
 import styles from "./index.module.css";
 
 type PropType = {
   size?: "small" | "medium" | "large";
-  color?: "primary" | "secondary" | "success";
+  color?: "primary" | "secondary" | "success" | "error";
   label: string;
   checked: boolean;
   onChange: () => void;
 };
 
-const Checkbox: React.FC<PropType> = ({
+export const Checkbox = ({
   label,
   onChange,
   checked,
   color = "primary",
   size = "small",
-}) => {
+}: PropType) => {
+  const activeStyle = checked
+    ? [styles["checkbox__box--active"], styles[`checkbox__box--${color}`]]
+    : [];
+
   return (
     <label className={styles.checkbox}>
       <span
@@ -24,8 +27,7 @@ const Checkbox: React.FC<PropType> = ({
         className={classnames(
           styles.checkbox__box,
           styles[`checkbox__box--${size}`],
-          checked && styles["checkbox__box--active"],
-          checked && styles[`checkbox__box--${color}`]
+          ...activeStyle
         )}
       />
       <input
@@ -38,5 +40,3 @@ const Checkbox: React.FC<PropType> = ({
     </label>
   );
 };
-
-export default Checkbox;

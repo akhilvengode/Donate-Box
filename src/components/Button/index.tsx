@@ -1,4 +1,3 @@
-import React from "react";
 import classnames from "classnames";
 import styles from "./index.module.css";
 
@@ -8,12 +7,12 @@ type PropType = {
   onClick?: () => void;
 };
 
-const Button: React.FC<PropType & React.HTMLProps<HTMLButtonElement>> = ({
+export const Button = ({
   children,
   type = "button",
   disabled = false,
   ...props
-}) => {
+}: PropType & React.HTMLProps<HTMLButtonElement>) => {
   return (
     <button
       type={type}
@@ -27,5 +26,3 @@ const Button: React.FC<PropType & React.HTMLProps<HTMLButtonElement>> = ({
     </button>
   );
 };
-
-export default Button;

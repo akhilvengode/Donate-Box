@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
-import Triangle from "./triangle";
+import { Triangle } from "./triangle";
 import styles from "./index.module.css";
 
 type OptionType = {
@@ -13,36 +13,41 @@ type PropType = {
   placeHolder?: string;
   options: Array<OptionType>;
   onChange: (name: string, value: string) => void;
+  onBlur?: () => void;
   value?: OptionType;
   required?: boolean;
   error?: boolean;
   errorMessage?: string;
 };
 
-const Dropdown: React.FC<PropType> = ({
+export const Dropdown = ({
   label,
   options,
   onChange,
+  onBlur,
   value,
   placeHolder,
   required = false,
   error = false,
   errorMessage,
-}) => {
-  const [isOpen, toggle] = useState(false);
+}: PropType) => {
+  const [open, setOpen] = useState(false);
   const optionsRef = useRef<HTMLDivElement>(null);
   const dropdownHeadRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const toggleOptions = () => {
-      toggle(false);
-      document.removeEventListener("click", toggleOptions);
+      setOpen(false);
     };
 
-    if (isOpen) {
+    if (open) {
       document.addEventListener("click", toggleOptions);
     }
-  }, [isOpen]);
+
+    return () => {
+      document.removeEventListener("click", toggleOptions);
+    };
+  }, [open]);
 
   return (
     <div className={styles.dropdown}>
@@ -57,33 +62,36 @@ const Dropdown: React.FC<PropType> = ({
           {required && <span className={styles.dropdown__required}>*</span>}
         </span>
         <div
-          id="dropdown-head"
+          data-testid="dropdown-head"
           className={classnames(
             styles.dropdown__head,
             error && styles.dropdown__error
           )}
+          onBlur={onBlur}
           ref={dropdownHeadRef}
           tabIndex={0}
           role="button"
-          aria-expanded={isOpen}
-          onClick={() => toggle((prev) => !prev)}
+          aria-expanded={open}
+          onClick={() => setOpen((prev) => !prev)}
           onKeyDown={(event) => {
-            if (event.key === "Enter") toggle((prev) => !prev);
+            event.key === "Enter" && setOpen((prev) => !prev);
           }}
         >
           {(value && value.value) || (
               <p className={styles.dropdown__placeholder}>{placeHolder}</p>
             ) ||
             ""}
-          <Triangle type={isOpen ? "up" : "down"} />
+          <Triangle type={open ? "up" : "down"} />
         </div>
         {error && (
-          <p className={styles["dropdown__error-message"]}>{errorMessage}</p>
+          <small className={styles["dropdown__error-message"]}>
+            {errorMessage}
+          </small>
         )}
       </label>
-      {isOpen && (
+      {open && (
         <div
-          id="dropdown-list"
+          data-testid="dropdown-list"
           ref={optionsRef}
           tabIndex={0}
           role="button"
@@ -91,6 +99,7 @@ const Dropdown: React.FC<PropType> = ({
         >
           {options.map(({ name, value: optionValue }) => (
             <div
+              data-testid="dropdown-option"
               className={classnames(
                 styles.dropdown__option,
                 optionValue === value?.value &&
@@ -108,5 +117,3 @@ const Dropdown: React.FC<PropType> = ({
     </div>
   );
 };
-
-export default Dropdown;

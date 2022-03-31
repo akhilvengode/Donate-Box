@@ -1,24 +1,26 @@
-import MyButton from ".";
-import { shallow } from "enzyme";
+import { Button } from ".";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 describe("Testing Button component", () => {
   const onClickMock = jest.fn();
-  const wrapper = shallow(
-    <MyButton id="test" type="button" onClick={onClickMock}>
-      Hello
-    </MyButton>
-  );
-
-  it("should match the snapshot", () => {
-    expect(wrapper).toMatchSnapshot();
-  });
 
   it("should render the button correctly", () => {
-    expect(wrapper).toHaveLength(1);
+    render(
+      <Button type="button" onClick={onClickMock}>
+        Hello
+      </Button>
+    );
+    expect(screen.getByRole("button")).toHaveTextContent(/hello/i);
   });
 
   it("should call the function when clicked", () => {
-    wrapper.simulate("click");
-    expect(onClickMock).toBeCalled();
+    render(
+      <Button type="button" onClick={onClickMock}>
+        Hello
+      </Button>
+    );
+    userEvent.click(screen.getByRole("button"));
+    expect(onClickMock).toHaveBeenCalledTimes(1);
   });
 });

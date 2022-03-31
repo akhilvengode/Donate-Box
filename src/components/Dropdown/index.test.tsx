@@ -1,5 +1,6 @@
-import { shallow } from "enzyme";
-import Dropdown from ".";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Dropdown } from ".";
 
 describe("Testing Dropdown component", () => {
   const mockOptions = [
@@ -7,34 +8,47 @@ describe("Testing Dropdown component", () => {
     { name: "Second", value: "second" },
   ];
   const onChangeMock = jest.fn();
-  const wrapper = shallow(
-    <Dropdown
-      options={mockOptions}
-      onChange={onChangeMock}
-      value={{ name: "Second", value: "second" }}
-      label="Test Label"
-    />
-  );
-
-  it("should match the snapshot", () => {
-    expect(wrapper).toMatchSnapshot();
-  });
 
   it("should render the dropdown properly", () => {
-    expect(wrapper).toHaveLength(1);
+    render(
+      <Dropdown
+        options={mockOptions}
+        onChange={onChangeMock}
+        value={{ name: "Second", value: "second" }}
+        label="Test Label"
+      />
+    );
+    expect(screen.getByTestId("dropdown-head")).toBeInTheDocument();
+    expect(screen.getByText("Test Label")).toBeInTheDocument();
   });
 
   it("should show/hide when we click on dropdown head", () => {
-    expect(wrapper.find("#dropdown-list")).toHaveLength(0);
-    wrapper.find("#dropdown-head").simulate("click");
-    expect(wrapper.find("#dropdown-list")).toHaveLength(1);
-    wrapper.find("#dropdown-head").simulate("click");
-    expect(wrapper.find("#dropdown-list")).toHaveLength(0);
+    render(
+      <Dropdown
+        options={mockOptions}
+        onChange={onChangeMock}
+        value={{ name: "Second", value: "second" }}
+        label="Test Label"
+      />
+    );
+    expect(screen.queryByTestId("dropdown-list")).not.toBeInTheDocument();
+    userEvent.click(screen.getByTestId("dropdown-head"));
+    expect(screen.getByTestId("dropdown-list")).toBeInTheDocument();
+    userEvent.click(screen.getByTestId("dropdown-head"));
+    expect(screen.queryByTestId("dropdown-list")).not.toBeInTheDocument();
   });
 
   it("should call onChange when change event happens", () => {
-    wrapper.find("#dropdown-head").simulate("click");
-    wrapper.find(".dropdown__option").at(0).simulate("click");
+    render(
+      <Dropdown
+        options={mockOptions}
+        onChange={onChangeMock}
+        value={{ name: "Second", value: "second" }}
+        label="Test Label"
+      />
+    );
+    userEvent.click(screen.getByTestId("dropdown-head"));
+    userEvent.click(screen.getAllByTestId("dropdown-option")[0]);
     expect(onChangeMock).toBeCalledTimes(1);
   });
 });

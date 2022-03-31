@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useUpdateEffect } from "../../hooks";
-import PageLayout from "../../components/PageLayout";
-import Heading from "../../components/Heading";
-import TextInput from "../../components/TextInput";
-import Checkbox from "../../components/Checkbox";
-import Dropdown from "../../components/Dropdown";
+import { useEffect, useState } from "react";
+import {
+  PageLayout,
+  Heading,
+  TextInput,
+  Checkbox,
+  Dropdown,
+  Button,
+} from "../../components";
 import constants from "./constants";
-import Button from "../../components/Button";
 import styles from "./index.module.css";
 
 const isEmailNotValid = (email: string, isAnonymous: boolean) =>
@@ -14,11 +15,9 @@ const isEmailNotValid = (email: string, isAnonymous: boolean) =>
   (email.trim() === "" ||
     !email.trim().toLowerCase().match(constants.EMAIL_REGEX));
 
-const isAmountNotValid = (
-  amount: { name: string; value: string } | undefined
-) => !amount;
+const isAmountNotValid = (amount: string | undefined) => !amount;
 
-const DonateBox: React.FC = () => {
+export const DonateBox = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [amountError, setAmountError] = useState(false);
@@ -30,21 +29,17 @@ const DonateBox: React.FC = () => {
   useEffect(() => {
     if (isAnonymous) {
       setEmail("");
+      setEmailError(false);
     }
   }, [isAnonymous]);
 
-  useUpdateEffect(() => {
-    if (isEmailNotValid(email, isAnonymous)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-  }, [email, isAnonymous]);
+  const validateEmail = () => {
+    setEmailError(isEmailNotValid(email, isAnonymous));
+  };
 
-  useUpdateEffect(() => {
-    if (isAmountNotValid(selectedAmount)) setAmountError(true);
-    else setAmountError(false);
-  });
+  const validateAmount = (amount: string) => {
+    setAmountError(isAmountNotValid(amount));
+  };
 
   const getEmailErrorMessage = () => {
     if (!isAnonymous && email.trim() === "") return "email cannot be empty";
@@ -56,13 +51,15 @@ const DonateBox: React.FC = () => {
   };
 
   const getAmountErrorMessage = () => {
-    if (!selectedAmount) return "please select amount";
+    if (!selectedAmount) {
+      return "please select amount";
+    }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const emailNotValid = isEmailNotValid(email, isAnonymous);
-    const amountNotValid = isAmountNotValid(selectedAmount);
+    const amountNotValid = isAmountNotValid(selectedAmount?.value);
     if (emailNotValid || amountNotValid) {
       if (emailNotValid) setEmailError(true);
       if (amountNotValid) setAmountError(true);
@@ -89,6 +86,7 @@ const DonateBox: React.FC = () => {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setEmail(event.target.value);
             }}
+            onBlur={validateEmail}
             disabled={isAnonymous}
             error={emailError}
             errorMessage={getEmailErrorMessage()}
@@ -109,6 +107,7 @@ const DonateBox: React.FC = () => {
             placeHolder="Select amount among"
             onChange={(optionName, optionValue) => {
               setSelectedAmount({ name: optionName, value: optionValue });
+              validateAmount(optionValue);
             }}
             required
             error={amountError}
@@ -136,5 +135,3 @@ const DonateBox: React.FC = () => {
     </PageLayout>
   );
 };
-
-export default DonateBox;

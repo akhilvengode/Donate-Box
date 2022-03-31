@@ -1,4 +1,4 @@
-import Dropdown from "../components/Dropdown";
+import { Dropdown } from "../components";
 import { ComponentStory } from "@storybook/react";
 
 export default {

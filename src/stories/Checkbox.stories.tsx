@@ -1,4 +1,4 @@
-import Checkbox from "../components/Checkbox";
+import { Checkbox } from "../components";
 import { ComponentStory } from "@storybook/react";
 
 export default {

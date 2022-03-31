@@ -1,7 +1,6 @@
+import { ReactNode } from "react";
 import styles from "./index.module.css";
 
-const PageLayout: React.FC = ({ children }) => {
+export const PageLayout = ({ children }: { children: ReactNode }) => {
   return <div className={styles.layout}>{children}</div>;
 };
-
-export default PageLayout;

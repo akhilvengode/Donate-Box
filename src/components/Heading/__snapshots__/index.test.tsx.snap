@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Testing Heading Component should match the snapshot 1`] = `
-<h1
-  className="heading heading--left"
->
-  Test Head
-</h1>
-`;
